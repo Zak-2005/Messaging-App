@@ -1,4 +1,4 @@
-function UsersSidebar() {
+export default function UsersSidebar() {
     return(
         <>
             <ul>

@@ -1,4 +1,4 @@
-function ChatsSidebar(){
+export default function ChatsSidebar(){
     return(
         <ul>
             <li>Main Chat</li>
