@@ -1,0 +1,14 @@
+.mainContent{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 3fr 1fr;
+    justify-items: center;
+}
+
+.currentChat{
+    grid-row: 1;
+}
+
+.messageBar{
+    grid-row: 2;
+}
