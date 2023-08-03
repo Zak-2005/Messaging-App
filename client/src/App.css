@@ -10,7 +10,7 @@
   grid-template-rows: 1fr 10fr;
   background-color: rgb(69, 69, 69);
   color: white;
-  font-family: discordDash;
+  font-family: discord;
   min-height: 100vh;
   max-height: 100vh;
 }
