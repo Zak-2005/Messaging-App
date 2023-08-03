@@ -2,31 +2,30 @@ import '../../css/register.css'
 import axios from 'axios'
 import {useState} from "react"
 
-export default function Register(){
+export default function Login(){
     const [user, setUser] = useState("")
     const [pass, setPass] = useState("")
 
     const handleSetUser = (value)=>{
-        console.log(user)
         setUser(value)
     }
     const handleSetPass = (value)=>{
         setPass(value)
     }
 
-    const handleRegister = async(user, pass, e)=>{
+    const handleLogin = async(user, pass, e)=>{
         e.preventDefault();
 
-        const registerInfo = {
+        const loginInfo = {
             "user": user,
             "pass": pass
         }
 
         try{
-            const response = await axios.post('http://localhost:3500/register', registerInfo)
-            console.log(response.data)
+            const response = await axios.post('http://localhost:3500/login', loginInfo, {withCredentials: true})
+            console.log(response.data, "hello")
             if(response.data){
-                window.location.href = '/login';
+                window.location.href = '/dashboard';
             }
         }catch(err){
             console.log("Incorrect Username and password or you already have an account, login")
@@ -36,8 +35,8 @@ export default function Register(){
     return(
         <div className="registerContainer">
             <div className="registerForm">
-                <h1 className='formTitle'>Create an Account:</h1>
-                <form method="POST" onSubmit={(e)=>handleRegister(user, pass, e)}>
+                <h1 className='formTitle'>Login:</h1>
+                <form method="POST" onSubmit={(e)=>handleLogin(user, pass, e)}>
                     <div className='inputField'>
                         <label htmlFor="username">Username:</label>
                         <input type="text" name="user" placeholder="Enter your username:" value={user} onChange={(e)=>handleSetUser(e.target.value)}/>

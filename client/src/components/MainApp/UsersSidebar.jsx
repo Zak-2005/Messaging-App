@@ -4,7 +4,7 @@ export default function UsersSidebar({userList}) {
         <div className='userList'>
         {userList?
             <ul>
-            <li>Main Chat</li>
+            <li>test</li>
             <li>Example Chat</li>
             <li>Example Chat</li>
             <li>Example Chat</li>
