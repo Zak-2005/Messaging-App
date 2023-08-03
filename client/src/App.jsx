@@ -5,7 +5,7 @@ import UsersSidebar from "./components/MainApp/UsersSidebar";
 import CurrentChat from "./components/MainApp/CurrentChat";
 import ChatsSidebar from "./components/MainApp/ChatsSidebar";
 
-function App() {
+function App(user) {
   const [userList, setUserList] = useState(false);
   const [currentChat, setCurrentChat] = useState("Main Chat");
 
