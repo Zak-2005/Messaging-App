@@ -1,29 +1,27 @@
 import { useState } from "react";
 import "./App.css";
-import Header from "./components/Header";
-import UsersSidebar from "./components/UsersSidebar";
-import CurrentChat from "./components/CurrentChat";
-import MessageBar from "./components/MessageBar";
-import ChatsSidebar from "./components/ChatsSidebar";
+import Header from "./components/MainApp/Header";
+import UsersSidebar from "./components/MainApp/UsersSidebar";
+import CurrentChat from "./components/MainApp/CurrentChat";
+import ChatsSidebar from "./components/MainApp/ChatsSidebar";
 
 function App() {
   const [userList, setUserList] = useState(false);
-  const [currentChat, setCurrentChat] = useState("Main Chat")
+  const [currentChat, setCurrentChat] = useState("Main Chat");
 
-  const showUserList =() =>{
+  const showUserList = () => {
     setUserList(!userList);
-  }
-  const changeCurrentChat = (chatName)=>{
-    setCurrentChat(chatName)
-  }
+  };
+  const changeCurrentChat = (chatName) => {
+    setCurrentChat(chatName);
+  };
   return (
-    <div className="container">
-      <ChatsSidebar changeCurrentChat={changeCurrentChat}/>
-      <Header showUserList={showUserList} currentChat={currentChat}/>
-        <div className="mainContent">
-          <CurrentChat currentChat={currentChat}/>
-          <MessageBar />
-        </div>
+    <div className="app">
+      <ChatsSidebar changeCurrentChat={changeCurrentChat} />
+      <Header showUserList={showUserList} currentChat={currentChat} />
+      <div className="mainContent">
+        <CurrentChat currentChat={currentChat} />
+      </div>
       <UsersSidebar userList={userList} />
     </div>
   );

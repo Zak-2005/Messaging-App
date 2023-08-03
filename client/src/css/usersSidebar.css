@@ -1,6 +1,8 @@
-ul {
-  grid-column: 3;
+
+
+.userList{
   grid-row: 2;
+  display:flex;
 }
 
 .fadeIn{
