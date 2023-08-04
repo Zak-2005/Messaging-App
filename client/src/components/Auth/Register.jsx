@@ -18,8 +18,8 @@ export default function Register(){
         e.preventDefault();
 
         const registerInfo = {
-            "user": user,
-            "pass": pass
+            user: user,
+            pass: pass
         }
 
         try{

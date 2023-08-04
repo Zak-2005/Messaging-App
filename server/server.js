@@ -24,6 +24,7 @@ app.use('/',  require("./routes/root"))
 app.use('/register', require('./routes/register'))
 app.use('/login', require('./routes/login'))
 app.use('/refresh', require('./routes/refresh'))
-
+app.use('/user', require('./routes/api/users'))
+app.use('/chat', require('./routes/chat'))
 
 app.listen(PORT, () => {console.log("Server connected to port: ", PORT)})

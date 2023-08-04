@@ -10,6 +10,7 @@ const registerNewUser = async(req,res)=> {
     if(duplicate) return res.sendStatus(409)
     try{
         const hashedPwd = await bcrypt.hash(pass, 10);
+        console.log(User)
         const createUser = await User.create({
             "username": user,
             "password": hashedPwd
