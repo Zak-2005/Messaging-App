@@ -27,19 +27,20 @@ export default function ChatsSidebar({ changeCurrentChat }) {
   };
   return (
     <div className="chatsSidebar">
-      <ul>
+      <ul >
         {allChats.map((chat) => {
           return (
             <li
               key={uuidv4()}
               onClick={(e) => changeCurrentChat(e.target.textContent)}
+            className="chat"
             >
               {chat.name}
             </li>
           );
         })}
 
-        <li onClick={() => setChatForm(true)}>Add Chat</li>
+        <li onClick={() => setChatForm(true)} className="chat">Add Chat</li>
         {chatForm ? (
           <div className="newChatForm">
             <input

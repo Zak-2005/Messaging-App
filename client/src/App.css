@@ -11,11 +11,19 @@
   background-color: rgb(69, 69, 69);
   color: white;
   font-family: discord;
-  min-height: 100vh;
-  max-height: 100vh;
+  height:100vh;
 }
 
-.mainPage {
-  display: grid;
-  grid-template-rows: 1fr minmax(0, 5fr) 1fr;
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(33, 33, 33);
+  box-shadow: 1px 0px 5px rgba(0, 0, 0, 0.35);
+  font-size: x-large;
+}
+ul > * {
+  margin-bottom: 2rem;
+
 }

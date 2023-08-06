@@ -4,29 +4,12 @@
   grid-row: 2;
   display:flex;
 }
-
-.fadeIn{
-  opacity: 0;
-  animation: fadeIn 1s ease-out forwards;
+li{
+    padding: 1rem;
 }
-.fadeOut{
-    animation: fadeOut 1s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.addFriend, .removeFriend{
+    height: min-content;
+    font-size: x-small;
+    margin-left: 5px;
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}

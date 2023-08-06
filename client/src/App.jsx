@@ -50,12 +50,12 @@ function App({ user }) {
     <div className="app">
       <ChatsSidebar changeCurrentChat={changeCurrentChat} />
       <Header showUserList={showUserList} currentChat={currentChat} />
-      <div className="mainContent">
-        <CurrentChat currentChat={currentChat} />
-      </div>
+
+        <CurrentChat currentChat={currentChat} currentUser={currentUser ? currentUser.foundUser.username : ""}/>
+
       <UsersSidebar
         userList={userList}
-        currentUser={currentUser ? currentUser.foundUser.username : ""}
+        currentUser={currentUser.foundUser ? currentUser.foundUser : ""}
       />
     </div>
   );

@@ -1,19 +1,54 @@
-.mainContent{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem
-}
 
-.messageBarContainer{
-    width: 100%;
-    margin-right:2rem;
-}
 
-.messageBar{
+::-webkit-scrollbar {
+    background-color: transparent;
+    width:10px;
+
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+.currentChat{
     padding:1rem;
+
+}
+
+.chatMessages{
+    border-radius: 10px;
+max-height: 60vh;
+overflow-y: scroll;
+}
+
+.messageBarContainer {
+  display:flex;
+    margin-top: 20px;
+}
+
+.messageBar {
+  padding: 1rem;
+  flex:1;
+}
+
+
+
+.otherUser{
+    margin-left: 10px;
+}
+.currentUser{
     display:flex;
-    justify-self: center;
-    width: 100%
+    justify-content: right;
+    flex-wrap: wrap;
+    margin-right: 10px;
+}
+
+.message{
+    word-break: break-all;
+
+}
+
+li{
+    display:flex;
+    overflow-wrap: break-word;
 }

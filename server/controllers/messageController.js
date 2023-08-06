@@ -2,10 +2,10 @@ const Chat = require("../models/Chat");
 const Message = require("../models/Message");
 
 const handleNewMessage = async (req, res) => {
-  const { currentChat, message } = req.body;
+  const { currentChat, message, currentUser } = req.body;
   console.log(currentChat);
-  if (!currentChat || !message) {
-    return res.status(400).json({ msg: "Please have a chat and a message" });
+  if (!currentChat || !message || !currentUser) {
+    return res.status(400).json({ msg: "Please have a chat, message, and user" });
   }
   try {
     const groupChat = await Chat.findOne({ name: currentChat });
@@ -16,6 +16,7 @@ const handleNewMessage = async (req, res) => {
     const sendNewMessage = await Message.create({
       chat: currentChat,
       message: message,
+      user: currentUser
     });
     res.status(200).json({ msg: "Message was successful" });
   } catch (err) {

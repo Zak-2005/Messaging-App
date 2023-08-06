@@ -12,6 +12,10 @@ const userSchema = new Schema({
     },
     refreshToken: {
         type: String,
+    },
+    friends: {
+        type:Array,
+        required: true
     }
 })
 
