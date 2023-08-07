@@ -2,9 +2,15 @@ import "../../css/mainContent.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-export default function CurrentChat({ currentChat, currentUser }) {
+export default function CurrentChat({
+  currentChat,
+  currentUser,
+  inviteToChatModal,
+  handleInviteToChat,
+}) {
   const [message, setMessage] = useState("");
   const [currentMessages, setCurrentMessages] = useState([]);
+  const [currentChatInfo, setCurrentChatInfo] = useState();
   const [fetchMessages, setFetchMessages] = useState(false);
 
   useEffect(() => {
@@ -13,12 +19,19 @@ export default function CurrentChat({ currentChat, currentUser }) {
         "http://localhost:3500/message/all",
         {
           currentChat: currentChat,
+          
         },
         { withCredentials: true }
       );
       setCurrentMessages(allMessages.data);
     };
+    const getCurrentChatInfo = async() =>{
+      const chatInfo = await axios.post('http://localhost:3500/chat/current', {chat:currentChat})
+      setCurrentChatInfo(chatInfo.data)
+      console.log(chatInfo.data)
+    }
     handleGetAllChatMessages();
+    getCurrentChatInfo()
   }, [currentChat, fetchMessages]);
 
   const handleNewMessage = async () => {
@@ -36,11 +49,19 @@ export default function CurrentChat({ currentChat, currentUser }) {
     setMessage("");
     setFetchMessages(!fetchMessages);
   };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleNewMessage();
     }
   };
+  const handleModalClick = (e) => {
+    // Prevent closing the modal when clicking inside the modal content
+    e.stopPropagation();
+  };
+  const addFriendToChat = async(friend)=>{
+    const addFriend = await axios.post("http://localhost:3500/chat/addToChat", {chat:currentChat,user:friend})
+  }
   return (
     <div className="currentChat">
       <ul className="chatMessages">
@@ -49,14 +70,18 @@ export default function CurrentChat({ currentChat, currentUser }) {
             <div className="message">
               <h3
                 className={
-                  currentUser === message.user ? "currentUser" : "otherUser"
+                  currentUser.username === message.user
+                    ? "currentUser"
+                    : "otherUser"
                 }
               >
                 {message.user}:
               </h3>
               <li
                 key={uuidv4()}
-                className={currentUser === message.user ? "currentUser" : ""}
+                className={
+                  currentUser.username === message.user ? "currentUser" : ""
+                }
               >
                 {message.message}
               </li>
@@ -73,6 +98,29 @@ export default function CurrentChat({ currentChat, currentUser }) {
           onKeyDown={handleKeyDown}
         />
       </div>
+      {inviteToChatModal ? (
+        <div className="modal">
+          <div className="overlay" onClick={handleInviteToChat}>
+            <div className="modal-content" onClick={handleModalClick}>
+              <h1>Invite Friends to {currentChat}</h1>
+              <ul>
+                {currentUser.friends.map((friend) => {
+                  return (
+                    <div className="modal-friends">
+                      <li>{friend}</li>
+                      {currentChatInfo.users.includes(friend) ? (
+                        <button>Already Added</button>
+                      ) : (
+                        <button onClick={()=>addFriendToChat(friend)}>Add to Chat</button>
+                      )}
+                    </div>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
