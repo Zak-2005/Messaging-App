@@ -2,7 +2,7 @@ import "../../css/chatsSidebar.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-export default function ChatsSidebar({ changeCurrentChat }) {
+export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
   const [chatForm, setChatForm] = useState(false);
   const [newChat, setNewChat] = useState("");
   const [allChats, setAllChats] = useState([]);
@@ -15,11 +15,12 @@ export default function ChatsSidebar({ changeCurrentChat }) {
       setAllChats(chats.data);
     };
     getAllChats();
+    console.log(allChats)
   }, [fetchChats]);
   const handleNewChat = async (value) => {
     const newChat = await axios.post(
       "http://localhost:3500/chat",
-      { chat: value },
+      { chat: value, user:currentUser.username },
       { withCredentials: true }
     );
     setChatForm(false);
@@ -29,6 +30,7 @@ export default function ChatsSidebar({ changeCurrentChat }) {
     <div className="chatsSidebar">
       <ul >
         {allChats.map((chat) => {
+          if(chat.users.includes(currentUser.username)){
           return (
             <li
               key={uuidv4()}
@@ -37,7 +39,7 @@ export default function ChatsSidebar({ changeCurrentChat }) {
             >
               {chat.name}
             </li>
-          );
+          );}
         })}
 
         <li onClick={() => setChatForm(true)} className="chat">Add Chat</li>
