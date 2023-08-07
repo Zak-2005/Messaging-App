@@ -19,7 +19,7 @@ const handleGetUser = async (req, res) => {
 };
 
 const handleGetAllUsers = async(req,res)=>{
-    const allUsers = await User.find();
+    const allUsers = await User.find().exec();
     console.log(allUsers)
     res.json(allUsers)
 }

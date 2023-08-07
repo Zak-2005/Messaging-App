@@ -8,7 +8,7 @@ const handleNewMessage = async (req, res) => {
     return res.status(400).json({ msg: "Please have a chat, message, and user" });
   }
   try {
-    const groupChat = await Chat.findOne({ name: currentChat });
+    const groupChat = await Chat.findOne({ name: currentChat }).exec();
     console.log(groupChat);
     if (!groupChat) {
       return res.status(404).json({ msg: "Chat does not exist" });
@@ -31,11 +31,11 @@ const handleGetChatMessages = async (req, res) => {
     return res.status(400).json({ msg: "Please have a chat" });
   }
   try {
-    const chatExists = await Chat.findOne({ name: currentChat });
+    const chatExists = await Chat.findOne({ name: currentChat }).exec();
     if (!chatExists) {
       return res.status(400).json({ msg: "Chat does not exist" });
     }
-    const chatMessages = await Message.find({ chat: currentChat });
+    const chatMessages = await Message.find({ chat: currentChat }).exec();
     res.json(chatMessages);
   } catch (err) {
     console.error(err);
