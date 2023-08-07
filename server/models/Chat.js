@@ -7,7 +7,9 @@ const chatSchema = new Schema({
     required: true,
   },
   users: {
-    type: Array
+    type: Array,
+    required: true,
+
   }
 });
 
