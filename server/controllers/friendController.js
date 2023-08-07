@@ -5,8 +5,8 @@ const handleAddFriend = async(req,res)=>{
     if(!user || !friend){
         return res.status(400).json({msg:"Please enter a user and a friend"})
     }
-    const foundUser = await User.findOne({username: user})
-    const foundFriend = await User.findOne({username: friend})
+    const foundUser = await User.findOne({username: user}).exec()
+    const foundFriend = await User.findOne({username: friend}).exec()
     if(!foundUser || !foundFriend){
         return res.status(400).json("The user or friend does not exist")
     }
@@ -28,8 +28,8 @@ const handleRemoveFriend = async(req,res)=>{
     if(!user || !friend){
         return res.status(400).json({msg:"Please enter a user and a friend"})
     }
-    const foundUser = await User.findOne({username: user})
-    const foundFriend = await User.findOne({username: friend})
+    const foundUser = await User.findOne({username: user}).exec()
+    const foundFriend = await User.findOne({username: friend}).exec()
     if(!foundUser || !foundFriend){
         return res.status(400).json("The user or friend does not exist")
     }
