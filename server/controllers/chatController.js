@@ -39,4 +39,4 @@ const handleAddFriendToChat = async(req,res) =>{
         return res.status(500).json({msg: "Failed to add user to chat"})
     }
 }
-module.exports = {handleNewChat,handleGetAllChats}
+module.exports = {handleNewChat,handleGetAllChats,handleAddFriendToChat}
