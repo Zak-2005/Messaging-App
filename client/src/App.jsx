@@ -11,6 +11,7 @@ function App({ user }) {
   const [userList, setUserList] = useState(false);
   const [currentChat, setCurrentChat] = useState("Main Chat");
   const [currentUser, setCurrentUser] = useState("");
+  const [inviteToChatModal, setInviteToChatModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     const refreshAccessToken = async () => {
@@ -33,9 +34,10 @@ function App({ user }) {
         await setCurrentUser(loadData.data);
       } catch (error) {
         console.error(error);
-        navigate('/login')
+        navigate("/login");
       }
     };
+
     refreshAccessToken();
   }, [document.cookie]);
 
@@ -45,13 +47,24 @@ function App({ user }) {
   const changeCurrentChat = (chatName) => {
     setCurrentChat(chatName);
   };
-
+  const handleInviteToChat = () => {
+    setInviteToChatModal(!inviteToChatModal);
+  };
   return (
     <div className="app">
-      <ChatsSidebar changeCurrentChat={changeCurrentChat} />
-      <Header showUserList={showUserList} currentChat={currentChat} />
+      <ChatsSidebar changeCurrentChat={changeCurrentChat} currentUser={currentUser ? currentUser.foundUser : ""} currentChat={currentChat}/>
+      <Header
+        showUserList={showUserList}
+        currentChat={currentChat}
+        handleInviteToChat={handleInviteToChat}
+      />
 
-        <CurrentChat currentChat={currentChat} currentUser={currentUser ? currentUser.foundUser.username : ""}/>
+      <CurrentChat
+        currentChat={currentChat}
+        currentUser={currentUser ? currentUser.foundUser : ""}
+        inviteToChatModal={inviteToChatModal}
+        handleInviteToChat={handleInviteToChat}
+      />
 
       <UsersSidebar
         userList={userList}
