@@ -6,6 +6,9 @@ const chatSchema = new Schema({
     type: String,
     required: true,
   },
+  users: {
+    type: Array
+  }
 });
 
 module.exports = mongoose.model("Chat", chatSchema);
