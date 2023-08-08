@@ -30,7 +30,7 @@ export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
     <div className="chatsSidebar">
       <ul >
         {allChats.map((chat) => {
-          if(chat.users.includes(currentUser.username)){
+          if(chat.users.includes(currentUser._id)){
           return (
             <li
               key={uuidv4()}
