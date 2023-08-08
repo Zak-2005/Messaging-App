@@ -5,7 +5,7 @@ const registerNewUser = async (req, res) => {
   console.log(req.body);
   const { user, pass } = req.body;
   if (!user || !pass) {
-    res.status(400).json({ msg: "Username and password required" });
+    return res.status(400).json({ msg: "Username and password required" });
   }
   const duplicate = await User.findOne({ username: user }).exec();
   if (duplicate) return res.sendStatus(409);
@@ -14,6 +14,7 @@ const registerNewUser = async (req, res) => {
     console.log(User);
     const createUser = await User.create({
       username: user,
+      bio:"",
       password: hashedPwd,
     });
     const mainChatExists = await Chat.findOne({ name: "Main Chat" }).exec();
