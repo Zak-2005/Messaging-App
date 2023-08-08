@@ -3,6 +3,8 @@
 .userList{
   grid-row: 2;
   display:flex;
+  overflow-y:hidden;
+  padding:0px;
 }
 li{
     padding: 1rem;
@@ -13,3 +15,7 @@ li{
     margin-left: 5px;
 }
 
+li>a{
+    color: white;
+    
+}

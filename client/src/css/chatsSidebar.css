@@ -4,6 +4,8 @@
   grid-column: 1;
   grid-row: 2;
   display: flex;
+  overflow-y:hidden;
+
 }
 .chat {
   transition: background-color 0.5s ease-out, box-shadow 0.5s ease-out;
