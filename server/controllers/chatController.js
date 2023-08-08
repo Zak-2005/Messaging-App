@@ -8,7 +8,7 @@ const handleNewChat = async (req, res) => {
   try{
   const createChat = await Chat.create({
     "name": chat,
-    "users": [user]
+    "users": [foundUser._id]
   })
   res.json({msg: `Your chat: ${chat} was created successfully!`})
 }catch(err){

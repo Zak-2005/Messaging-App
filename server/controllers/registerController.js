@@ -22,11 +22,11 @@ const registerNewUser = async (req, res) => {
      const mainChat = await Chat.create({
         name: "Main Chat",
       });
-      mainChat.users.push(createUser.username);
+      mainChat.users.push(createUser._id);
       await mainChat.save();
     }
     else{
-        mainChatExists.users.push(createUser.username);
+        mainChatExists.users.push(createUser._id);
         await mainChatExists.save();
     }
     res.json({ success: true });
