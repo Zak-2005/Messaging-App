@@ -1,11 +1,11 @@
 import '../../css/register.css'
 import axios from 'axios'
 import {useState} from "react"
-
+import {Link} from 'react-router-dom'
 export default function Register(){
     const [user, setUser] = useState("")
     const [pass, setPass] = useState("")
-
+    const [registerFailed, setRegisterFailed] = useState(false)
     const handleSetUser = (value)=>{
         console.log(user)
         setUser(value)
@@ -29,7 +29,7 @@ export default function Register(){
                 window.location.href = '/login';
             }
         }catch(err){
-            console.log("Incorrect Username and password or you already have an account, login")
+            setRegisterFailed(true)
         }
 
     }
@@ -47,7 +47,10 @@ export default function Register(){
                         <input type="password" name="pass" placeholder="Enter your password:" value={pass} onChange={(e)=>handleSetPass(e.target.value)}/>
                     </div>
                     <button type="submit">Finish!</button>
+                    
                 </form>
+                {registerFailed?
+                    <div className='warning'>Username already taken, <Link to="/login">login</Link></div>:null}
             </div>
         </div>
     )
