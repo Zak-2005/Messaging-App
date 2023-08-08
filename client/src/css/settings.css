@@ -9,6 +9,12 @@
     background-color: rgb(70, 70, 70);
 }
 
+.profileContainer{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .settingsTitle{
     grid-column: 1/span 2;
     display: flex;
@@ -29,3 +35,20 @@
     flex: 1;
     grid-row: 2;
 }
+
+.profile{
+    background-color: rgb(33, 33, 33);
+    max-width: max-content;
+    padding:1rem;
+}
+
+.profile-element{
+    display: flex;
+    align-items: center;
+    
+}
+
+.element-title{
+    font-size: x-large;
+}
+
