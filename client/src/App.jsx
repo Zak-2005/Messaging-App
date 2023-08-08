@@ -57,12 +57,12 @@ function App({ user }) {
         showUserList={showUserList}
         currentChat={currentChat}
         handleInviteToChat={handleInviteToChat}
+        currentUser={currentUser ? currentUser.foundUser : ""}
       />
 
       <CurrentChat
         currentChat={currentChat}
-        currentUser={currentUser ? currentUser.foundUser : ""}
-        inviteToChatModal={inviteToChatModal}
+        currentUser={currentUser ? currentUser.foundUser : ""}        inviteToChatModal={inviteToChatModal}
         handleInviteToChat={handleInviteToChat}
       />
 
