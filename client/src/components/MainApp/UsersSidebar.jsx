@@ -2,6 +2,7 @@ import "../../css/usersSidebar.css";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
+import {Link} from 'react-router-dom'
 export default function UsersSidebar({ userList, currentUser }) {
   const [users, setUsers] = useState("");
   useEffect(() => {
@@ -47,7 +48,7 @@ export default function UsersSidebar({ userList, currentUser }) {
           </li>
           {currentUser.friends.map((friend) => (
             <li key={uuidv4()}>
-              <strong>{friend}</strong>
+              <Link to={`/${friend}`}><strong>{friend}</strong></Link>
               <button
                 className="removeFriend"
                 onClick={() => handleRemoveFriend(friend)}
@@ -67,7 +68,7 @@ export default function UsersSidebar({ userList, currentUser }) {
               return (
                 <div>
                   <li key={uuidv4()}>
-                    {user.username}
+                  <Link to={`/${user.username}`}> {user.username}</Link>
                     <button
                       className="addFriend"
                       onClick={() => handleAddFriend(user.username)}
