@@ -4,6 +4,7 @@ const router = express.Router();
 const userController = require('../../controllers/userController')
 
 router.get('/',userController.handleGetAllUsers)
-router.post('/',userController.handleGetUser)
-
+router.post('/',userController.handleGetCurrentUser)
+router.post('/otherUser',userController.handleGetOtherUser )
+router.put('/bio',userController.handleEditBio)
 module.exports = router;
