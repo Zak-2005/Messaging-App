@@ -1,6 +1,6 @@
 const User = require('../models/User')
 const jwt = require("jsonwebtoken");
-
+const bcrypt= require('bcrypt')
 
 const handleGetCurrentUser = async (req, res) => {
     console.log(req.cookies)
@@ -45,4 +45,39 @@ const handleEditBio = async(req,res)=>{
         res.status(500).json({msg:"Failed to update bio"})
     }
 }
-module.exports = { handleGetCurrentUser,handleGetAllUsers, handleGetOtherUser, handleEditBio};
+const handleEditUsername = async(req,res)=>{
+    const {currentUsername,newUsername} = req.body
+    if(!currentUsername || !newUsername) return res.status(400).json({msg:"Please enter a currentUsername and a newUsername"})
+    const foundCurrentUsername = await User.findOne({username:currentUsername}).exec()
+    if(!foundCurrentUsername) return res.status(400).json({msg:"User does not exist"})
+    try{
+        foundCurrentUsername.username = newUsername;
+        await foundCurrentUsername.save()
+        return res.status(200).json({msg:"Successfully updated username"})
+    }catch(err){
+        console.error(err)
+        return res.status(500).json({msg:"Failed to update username"})
+    }
+}
+const handleChangePass = async(req,res)=>{
+    const {user,oldPass,newPass} = req.body
+    if(!user || !oldPass || !newPass) return res.status(400).json({msg:"Please enter a user, your old pass, and a new pass"})
+    const foundUser = await User.findOne({username:user}).exec()
+    if(!foundUser) return res.status(400).json({msg:"User does not exist"})
+    const confirmOldPass = await bcrypt.compare( oldPass,foundUser.password)
+    console.log(oldPass)
+    console.log(foundUser)
+    if(!confirmOldPass) return res.status(400).json({msg:"Old password incorrect"})
+    if(confirmOldPass && oldPass===newPass) return res.status(400).json({msg:"Password already in use"})
+    try{
+        const hashNewPass = await bcrypt.hash(newPass, 10)
+        foundUser.password = hashNewPass
+        await foundUser.save()
+        console.log(foundUser.password)
+        return res.status(200).json({msg:"Successfully updated password"})
+    }catch(err){
+        console.error(err)
+        return res.status(500).json({msg:"Failed to update password"})
+    }
+}
+module.exports = { handleGetCurrentUser,handleGetAllUsers, handleGetOtherUser, handleEditBio,handleEditUsername, handleChangePass};
