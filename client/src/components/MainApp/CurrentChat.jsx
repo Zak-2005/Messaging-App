@@ -40,7 +40,7 @@ export default function CurrentChat({
       {
         currentChat: currentChat,
         message: message,
-        currentUser: currentUser,
+        currentUser: currentUser.username,
       },
       {
         withCredentials: true,
