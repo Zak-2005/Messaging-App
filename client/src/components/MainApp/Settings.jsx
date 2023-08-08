@@ -7,15 +7,18 @@ import axios from "axios";
 export default function Settings() {
   const user = useParams();
   const [foundUserInfo, setFoundUserInfo] = useState(null)
+  const [rerender, setRerender] = useState(false)
+
   useEffect(() => {
     const getUserInfo = async () => {
       const userInfo = await axios.post("http://localhost:3500/user/otherUser", {
         user: user.user,
       });
-      setFoundUserInfo(userInfo.data);
+       await setFoundUserInfo(userInfo.data);
     };
     getUserInfo()
-  });
+  },[rerender]);
+  
   return (
     <div className="settingsContainer">
       <div className="settingsTitle">
@@ -28,7 +31,7 @@ export default function Settings() {
           <Link to="/" className="logout"><li>Logout</li></Link>
         </ul>
       </div>
-      <Profile foundUserInfo={foundUserInfo?foundUserInfo:""}/>
+      <Profile foundUserInfo={foundUserInfo?foundUserInfo:""} rerender={rerender} setRerender={setRerender}/>
       
     </div>
   );
