@@ -3,7 +3,7 @@ import App from "./App"
 import Register from "./components/Auth/Register"
 import Settings from "./components/MainApp/Settings"
 import Login from "./components/Auth/Login"
-import {useState} from 'react'
+import Profile from "./components/MainApp/Profile"
 export default function Router(){
 
     return(
@@ -12,7 +12,7 @@ export default function Router(){
         <Route path="/" element={<Register />}/>
         <Route path="/login" element={<Login />}/>
         <Route path="/dashboard" element={<App />}/>
-        <Route path="/settings" element={<Settings/>}/>
+        <Route path="/:user" element={<Settings/>}/>
         </Routes>
         </BrowserRouter>
     )
