@@ -3,11 +3,12 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import {Link} from 'react-router-dom'
-export default function UsersSidebar({ userList, currentUser }) {
-  const [users, setUsers] = useState("");
+export default function UsersSidebar({ userList, currentUser}) {
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     const getAllUsers = async () => {
       const allUsers = await axios.get("http://localhost:3500/user");
+      console.log(allUsers.data)
       setUsers(allUsers.data);
     };
     getAllUsers();
@@ -31,11 +32,32 @@ export default function UsersSidebar({ userList, currentUser }) {
         data: { user: currentUser.username, friend: friend },
       });
       alert('Refresh the page to see changes')
-    } catch (errr) {
+    } catch (err) {
       console.error(err);
     }
   };
 
+  const renderFriend = (friendId) => {
+    const friend = users.find(user => user._id === friendId);
+    if (friend) {
+      return (
+        <li key={uuidv4()}>
+          <Link to={`/${friend.username}`}>
+            <strong>{friend.username}</strong>
+          </Link>
+          <button
+            className="removeFriend"
+            onClick={() => handleRemoveFriend(friend.username)}
+          >
+            -
+          </button>
+        </li>
+      );
+    }
+    else return null; // Handle the case when the friend is not found
+  };
+  
+  
   return (
     <div className="userList">
       {userList ? (
@@ -46,24 +68,16 @@ export default function UsersSidebar({ userList, currentUser }) {
           <li>
             <strong>Friends:</strong>
           </li>
-          {currentUser.friends.map((friend) => (
-            <li key={uuidv4()}>
-              <Link to={`/${friend}`}><strong>{friend}</strong></Link>
-              <button
-                className="removeFriend"
-                onClick={() => handleRemoveFriend(friend)}
-              >
-                -
-              </button>
-            </li>
-          ))}
+          {currentUser.friends.map((friend) => {
+           return renderFriend(friend)
+          })}
           <li>
             <strong>Users:</strong>
           </li>
           {users.map((user) => {
             if (
               user.username !== currentUser.username &&
-              !currentUser.friends.includes(user.username)
+              !currentUser.friends.includes(user._id)
             ) {
               return (
                 <div>
