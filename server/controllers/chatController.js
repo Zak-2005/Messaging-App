@@ -40,7 +40,7 @@ const handleAddFriendToChat = async(req,res) =>{
     const duplicate = chatExists.users.find((username)=>username===user)
     if(duplicate) return res.status(400).json({msg:"User already in chat"})
     try{
-        chatExists.users.push(user)
+        chatExists.users.push(foundUser._id)
         await chatExists.save()
         return res.status(200).json({msg: "User successfully added to chat"})
     }catch(err){
