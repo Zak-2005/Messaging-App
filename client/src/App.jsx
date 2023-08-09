@@ -12,6 +12,7 @@ function App({ user }) {
   const [currentChat, setCurrentChat] = useState("Main Chat");
   const [currentUser, setCurrentUser] = useState("");
   const [inviteToChatModal, setInviteToChatModal] = useState(false);
+  const [accessToken, setAccessToken] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
     const refreshAccessToken = async () => {
@@ -23,15 +24,18 @@ function App({ user }) {
             withCredentials: true, // Include cookies in the request
           }
         );
-        console.log(response.data);
+        setAccessToken(response.data.accessToken);
         const loadData = await axios.post(
           "http://localhost:3500/user",
           {},
           {
-            withCredentials: true, // Include cookies in the request
+            headers: {
+              authorization: `Bearer ${response.data.accessToken}`,
+            },
           }
         );
-        await setCurrentUser(loadData.data);
+        console.log(loadData.data);
+        setCurrentUser(loadData.data);
       } catch (error) {
         console.error(error);
         navigate("/login");
@@ -39,7 +43,7 @@ function App({ user }) {
     };
 
     refreshAccessToken();
-  }, [document.cookie]);
+  }, []);
 
   const showUserList = () => {
     setUserList(!userList);
@@ -52,23 +56,28 @@ function App({ user }) {
   };
   return (
     <div className="app">
-      <ChatsSidebar changeCurrentChat={changeCurrentChat} currentUser={currentUser ? currentUser.foundUser : ""} currentChat={currentChat}/>
+      <ChatsSidebar
+        changeCurrentChat={changeCurrentChat}
+        currentUser={currentUser ? currentUser : ""}
+        currentChat={currentChat}
+      />
       <Header
         showUserList={showUserList}
         currentChat={currentChat}
         handleInviteToChat={handleInviteToChat}
-        currentUser={currentUser ? currentUser.foundUser : ""}
+        currentUser={currentUser ? currentUser : ""}
       />
 
       <CurrentChat
         currentChat={currentChat}
-        currentUser={currentUser ? currentUser.foundUser : ""}        inviteToChatModal={inviteToChatModal}
+        currentUser={currentUser ? currentUser : ""}
+        inviteToChatModal={inviteToChatModal}
         handleInviteToChat={handleInviteToChat}
       />
 
       <UsersSidebar
         userList={userList}
-        currentUser={currentUser.foundUser ? currentUser.foundUser : ""}
+        currentUser={currentUser ? currentUser : ""}
       />
     </div>
   );
