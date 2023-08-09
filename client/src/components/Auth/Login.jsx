@@ -1,12 +1,12 @@
 import "../../css/register.css";
 import axios from "axios";
 import { useState } from "react";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 export default function Login() {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [loginFailed, setLoginFailed] = useState(false);
-
+  const navigate = useNavigate()
   const handleSetUser = (value) => {
     setUser(value);
   };
@@ -28,9 +28,8 @@ export default function Login() {
         loginInfo,
         { withCredentials: true }
       );
-      console.log(response.data, "hello");
       if (response.data) {
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       }
     } catch (err) {
       setLoginFailed(true);
