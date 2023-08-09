@@ -8,6 +8,8 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
   const [changeBio, setChangeBio] = useState("");
   const [changePass, setChangePass] = useState("");
   const [enterCurrentPass, setEnterCurrentPass] = useState("");
+  const [accessToken, setAccessToken] = useState('')
+  const [userAccessingPage, setUserAccessingPage] = useState("")
   const currentUsername = useRef();
   const currentBio = useRef();
   const navigate = useNavigate();
@@ -16,6 +18,26 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
     currentBio.current = foundUserInfo.bio;
     setChangeUsername(foundUserInfo.username);
     setChangeBio(foundUserInfo.bio);
+
+    const refreshAccessToken = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:3500/refresh",
+          {},
+          {
+            withCredentials: true, // Include cookies in the request
+          }
+        );
+        const getUserOnPage = await axios.post('http://localhost:3500/user',{},{headers:{Authorization: `Bearer ${response.data.accessToken}`}})
+        setUserAccessingPage(getUserOnPage.data.username)
+        setAccessToken(response.data.accessToken);
+      } catch (error) {
+        console.error(error);
+        navigate("/login");
+      }
+    };
+    
+    refreshAccessToken()
   }, [foundUserInfo]);
 
   const handleEditProfile = async () => {
@@ -23,11 +45,17 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
       if (currentUsername.current !== changeUsername) {
         console.log(currentUsername);
         console.log(changeUsername);
+        console.log(accessToken)
         const editUsername = await axios.put(
           "http://localhost:3500/user/newUsername",
           {
             currentUsername: currentUsername.current,
             newUsername: changeUsername,
+          },
+          {
+            headers:{
+              Authorization: `Bearer ${accessToken}`
+            }
           }
         );
         setRerender(!rerender);
@@ -43,6 +71,11 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
           user: changeUsername,
           oldPass: enterCurrentPass,
           newPass: changePass
+        },
+        {
+          headers:{
+            Authorization: `Bearer ${accessToken}`
+          }
         });
       }
       currentUsername.current = changeUsername;
@@ -57,7 +90,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
   return (
     <div className="profileContainer">
       <div className="profile">
-        <h2>
+      {currentUsername.current===userAccessingPage?<h2>
           Edit:{" "}
           <img
             src="../public/edit.png"
@@ -65,7 +98,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
             className="icon"
             onClick={() => setEditProfile(true)}
           />
-        </h2>
+        </h2>:null}
 
         <div className="profile-element">
           <h3 className="element-title">Username:</h3>
