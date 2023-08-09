@@ -11,6 +11,7 @@ export default function CurrentChat({
   const [message, setMessage] = useState("");
   const [currentMessages, setCurrentMessages] = useState([]);
   const [currentChatInfo, setCurrentChatInfo] = useState();
+  const [friendIds, setFriendIds] = useState([]);
   const [fetchMessages, setFetchMessages] = useState(false);
 
   useEffect(() => {
@@ -19,20 +20,36 @@ export default function CurrentChat({
         "http://localhost:3500/message/all",
         {
           currentChat: currentChat,
-          
         },
         { withCredentials: true }
       );
       setCurrentMessages(allMessages.data);
     };
-    const getCurrentChatInfo = async() =>{
-      const chatInfo = await axios.post('http://localhost:3500/chat/current', {chat:currentChat})
-      setCurrentChatInfo(chatInfo.data)
-      console.log(chatInfo.data)
-    }
+    const getCurrentChatInfo = async () => {
+      const chatInfo = await axios.post("http://localhost:3500/chat/current", {
+        chat: currentChat,
+      });
+      setCurrentChatInfo(chatInfo.data);
+      console.log(chatInfo.data);
+    };
+    const getFriendIds = async () => {
+        try {
+          const response = await axios.get("http://localhost:3500/user");
+          const allUsers = response.data;
+          const friendIds = allUsers
+            .filter(friend => currentUser.friends.includes(friend._id))
+            .map(friend => ({ username: friend.username, id: friend._id }));
+      
+          console.log(friendIds);
+          setFriendIds(friendIds);
+        } catch (error) {
+          console.error('Error fetching friend IDs:', error);
+        }
+      };
     handleGetAllChatMessages();
-    getCurrentChatInfo()
-  }, [currentChat, fetchMessages]);
+    getCurrentChatInfo();
+    getFriendIds();
+  }, [currentChat, currentUser,fetchMessages]);
 
   const handleNewMessage = async () => {
     const newMessage = axios.post(
@@ -59,9 +76,13 @@ export default function CurrentChat({
     // Prevent closing the modal when clicking inside the modal content
     e.stopPropagation();
   };
-  const addFriendToChat = async(friend)=>{
-    const addFriend = await axios.post("http://localhost:3500/chat/addToChat", {chat:currentChat,user:friend})
-  }
+  const addFriendToChat = async (friend) => {
+    const addFriend = await axios.post("http://localhost:3500/chat/addToChat", {
+      chat: currentChat,
+      user: friend,
+    });
+  };
+
   return (
     <div className="currentChat">
       <ul className="chatMessages">
@@ -98,20 +119,24 @@ export default function CurrentChat({
           onKeyDown={handleKeyDown}
         />
       </div>
-      {inviteToChatModal ? (
+      {inviteToChatModal&&friendIds.length>0 ? (
         <div className="modal">
           <div className="overlay" onClick={handleInviteToChat}>
             <div className="modal-content" onClick={handleModalClick}>
               <h1>Invite Friends to {currentChat}</h1>
               <ul>
-                {currentUser.friends.map((friend) => {
+                {friendIds.map((friend) => {
                   return (
                     <div className="modal-friends">
-                      <li>{friend}</li>
-                      {currentChatInfo.users.includes(friend) ? (
+                      <li>{friend.username}</li>
+                      {currentChatInfo.users.includes(friend.id) ? (
                         <button>Already Added</button>
                       ) : (
-                        <button onClick={()=>addFriendToChat(friend)}>Add to Chat</button>
+                        <button
+                          onClick={() => addFriendToChat(friend.username)}
+                        >
+                          Add to Chat
+                        </button>
                       )}
                     </div>
                   );
