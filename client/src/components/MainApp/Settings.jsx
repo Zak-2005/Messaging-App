@@ -28,6 +28,7 @@ export default function Settings() {
       <div className="settingsSidebar">
         <ul className="settings">
           <li>Profile</li>
+          <Link to="/dashboard" ><li>Dashboard</li></Link>
           <Link to="/" className="logout"><li>Logout</li></Link>
         </ul>
       </div>
