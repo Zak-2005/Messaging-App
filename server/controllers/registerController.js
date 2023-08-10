@@ -20,6 +20,7 @@ const registerNewUser = async (req, res) => {
     if (!mainChatExists) {
      const mainChat = await Chat.create({
         name: "Main Chat",
+        chatID:"Main"
       });
       mainChat.users.push(createUser._id);
       await mainChat.save();
