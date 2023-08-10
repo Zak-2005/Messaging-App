@@ -8,8 +8,8 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
   const [changeBio, setChangeBio] = useState("");
   const [changePass, setChangePass] = useState("");
   const [enterCurrentPass, setEnterCurrentPass] = useState("");
-  const [accessToken, setAccessToken] = useState('')
-  const [userAccessingPage, setUserAccessingPage] = useState("")
+  const [accessToken, setAccessToken] = useState("");
+  const [userAccessingPage, setUserAccessingPage] = useState("");
   const currentUsername = useRef();
   const currentBio = useRef();
   const navigate = useNavigate();
@@ -28,16 +28,20 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
             withCredentials: true, // Include cookies in the request
           }
         );
-        const getUserOnPage = await axios.post('http://localhost:3500/user',{},{headers:{Authorization: `Bearer ${response.data.accessToken}`}})
-        setUserAccessingPage(getUserOnPage.data.username)
+        const getUserOnPage = await axios.post(
+          "http://localhost:3500/user",
+          {},
+          { headers: { Authorization: `Bearer ${response.data.accessToken}` } }
+        );
+        setUserAccessingPage(getUserOnPage.data.username);
         setAccessToken(response.data.accessToken);
       } catch (error) {
         console.error(error);
         navigate("/login");
       }
     };
-    
-    refreshAccessToken()
+
+    refreshAccessToken();
   }, [foundUserInfo]);
 
   const handleEditProfile = async () => {
@@ -45,7 +49,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
       if (currentUsername.current !== changeUsername) {
         console.log(currentUsername);
         console.log(changeUsername);
-        console.log(accessToken)
+        console.log(accessToken);
         const editUsername = await axios.put(
           "http://localhost:3500/user/newUsername",
           {
@@ -53,9 +57,9 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
             newUsername: changeUsername,
           },
           {
-            headers:{
-              Authorization: `Bearer ${accessToken}`
-            }
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           }
         );
         setRerender(!rerender);
@@ -66,17 +70,20 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
           bio: changeBio,
         });
       }
-      if (enterCurrentPass!== "" && changePass!== "") {
-        const response = await axios.put("http://localhost:3500/user/newPass", {
-          user: changeUsername,
-          oldPass: enterCurrentPass,
-          newPass: changePass
-        },
-        {
-          headers:{
-            Authorization: `Bearer ${accessToken}`
+      if (enterCurrentPass !== "" && changePass !== "") {
+        const response = await axios.put(
+          "http://localhost:3500/user/newPass",
+          {
+            user: changeUsername,
+            oldPass: enterCurrentPass,
+            newPass: changePass,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           }
-        });
+        );
       }
       currentUsername.current = changeUsername;
       currentBio.current = changeBio;
@@ -88,66 +95,66 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
   };
 
   return (
-    <div className="profileContainer">
-      <div className="profile">
-      {currentUsername.current===userAccessingPage?<h2>
-          Edit:{" "}
+    <div className="profile">
+      {currentUsername.current === userAccessingPage ? (
+        <div className="profile-title">
+          <h2>Edit: </h2>
           <img
             src="../public/edit.png"
             alt="edit profile"
             className="icon"
-            onClick={() => setEditProfile(true)}
+            onClick={() => setEditProfile(!editProfile)}
           />
-        </h2>:null}
-
-        <div className="profile-element">
-          <h3 className="element-title">Username:</h3>
-          {editProfile ? (
-            <input
-              type="text"
-              placeholder="Edit username"
-              value={changeUsername}
-              onChange={(e) => setChangeUsername(e.target.value)}
-            />
-          ) : (
-            <p>{currentUsername.current}</p>
-          )}
         </div>
-        <div className="profile-element">
-          <h3 className="element-title">Bio:</h3>
-          {editProfile ? (
-            <input
-              type="text"
-              placeholder="Edit Bio"
-              value={changeBio}
-              onChange={(e) => setChangeBio(e.target.value)}
-            />
-          ) : (
-            <p>{currentBio.current}</p>
-          )}
-        </div>
+      ) : null}
 
+      <div className="profile-element">
+        <h3 className="element-title">Username:</h3>
         {editProfile ? (
-          <>
-            <div className="profile-element">
-              <h3 className="element-title">Change Password:</h3>
-              <input
-                type="text"
-                placeholder="Current Password:"
-                value={enterCurrentPass}
-                onChange={(e) => setEnterCurrentPass(e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="Change Password:"
-                value={changePass}
-                onChange={(e) => setChangePass(e.target.value)}
-              />
-            </div>
-            <button onClick={() => handleEditProfile()}>Submit</button>
-          </>
-        ) : null}
+          <input
+            type="text"
+            placeholder="Edit username"
+            value={changeUsername}
+            onChange={(e) => setChangeUsername(e.target.value)}
+          />
+        ) : (
+          <p>{currentUsername.current}</p>
+        )}
       </div>
+      <div className="profile-element">
+        <h3 className="element-title">Bio:</h3>
+        {editProfile ? (
+          <input
+            type="text"
+            placeholder="Edit Bio"
+            value={changeBio}
+            onChange={(e) => setChangeBio(e.target.value)}
+          />
+        ) : (
+          <p>{currentBio.current}</p>
+        )}
+      </div>
+
+      {editProfile ? (
+        <>
+          <div className="profile-element">
+            <h3 className="element-title">Change Password:</h3>
+            <input
+              type="text"
+              placeholder="Current Password:"
+              value={enterCurrentPass}
+              onChange={(e) => setEnterCurrentPass(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Change Password:"
+              value={changePass}
+              onChange={(e) => setChangePass(e.target.value)}
+            />
+            <button onClick={() => handleEditProfile()}>Submit</button>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
