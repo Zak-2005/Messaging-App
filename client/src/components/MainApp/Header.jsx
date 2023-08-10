@@ -5,7 +5,7 @@ import '../../css/header.css'
 export default function Header({showUserList, currentChat, handleInviteToChat, currentUser}){
     return(
         <div className="header">
-            <h3>{currentChat}</h3>
+            <h3>{currentChat.name}</h3>
             <div className='icon-holder'>
                 <img src="../../public/invite.png" alt="invite to server" className='icon' onClick={()=>handleInviteToChat()}/>
                 <img src="../../public/users.png" alt="user list" className='icon' onClick={()=>showUserList()}/>
