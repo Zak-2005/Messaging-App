@@ -11,7 +11,7 @@ const messageSchema = new Schema({
         required: true
     },
     user:{
-        type:String,
+        type:Object,
         required: true
     }
 })
