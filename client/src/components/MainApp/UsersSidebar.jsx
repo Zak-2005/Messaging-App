@@ -3,12 +3,11 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Loading from "./Loading";
 export default function UsersSidebar({ userList, currentUser, setUserList }) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const getAllUsers = async () => {
-      const allUsers = await axios.get("http://localhost:3500/user");
+      const allUsers = await axios.get("https://MessageApp-api.onrender.com/user");
       console.log(allUsers.data);
       setUsers(allUsers.data);
     };
@@ -17,7 +16,7 @@ export default function UsersSidebar({ userList, currentUser, setUserList }) {
 
   const handleAddFriend = async (friend) => {
     try {
-      await axios.post("http://localhost:3500/friend", {
+      await axios.post("https://MessageApp-api.onrender.com/friend", {
         user: currentUser.username,
         friend: friend,
       });
@@ -29,7 +28,7 @@ export default function UsersSidebar({ userList, currentUser, setUserList }) {
 
   const handleRemoveFriend = async (friend) => {
     try {
-      const response = await axios.delete("http://localhost:3500/friend", {
+      const response = await axios.delete("https://MessageApp-api.onrender.com/friend", {
         data: { user: currentUser.username, friend: friend },
       });
       alert("Refresh the page to see changes");

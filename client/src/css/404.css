@@ -1,0 +1,14 @@
+.not-found {
+    height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+body{
+    background-color:gray;
+    color:white;
+    font-family: discord;
+    font-size: xx-large;
+}

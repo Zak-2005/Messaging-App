@@ -22,14 +22,14 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
     const refreshAccessToken = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:3500/refresh",
+          "https://MessageApp-api.onrender.com/refresh",
           {},
           {
             withCredentials: true, // Include cookies in the request
           }
         );
         const getUserOnPage = await axios.post(
-          "http://localhost:3500/user",
+          "https://MessageApp-api.onrender.com/user",
           {},
           { headers: { Authorization: `Bearer ${response.data.accessToken}` } }
         );
@@ -51,7 +51,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
         console.log(changeUsername);
         console.log(accessToken);
         const editUsername = await axios.put(
-          "http://localhost:3500/user/newUsername",
+          "https://MessageApp-api.onrender.com/user/newUsername",
           {
             currentUsername: currentUsername.current,
             newUsername: changeUsername,
@@ -65,14 +65,14 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
         setRerender(!rerender);
       }
       if (currentBio.current !== changeBio) {
-        const editBio = await axios.put("http://localhost:3500/user/bio", {
+        const editBio = await axios.put("https://MessageApp-api.onrender.com/user/bio", {
           user: changeUsername,
           bio: changeBio,
         });
       }
       if (enterCurrentPass !== "" && changePass !== "") {
         const response = await axios.put(
-          "http://localhost:3500/user/newPass",
+          "https://MessageApp-api.onrender.com/newPass",
           {
             user: changeUsername,
             oldPass: enterCurrentPass,

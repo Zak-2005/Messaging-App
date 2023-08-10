@@ -23,7 +23,7 @@ export default function Register(){
         }
 
         try{
-            const response = await axios.post('http://localhost:3500/register', registerInfo)
+            const response = await axios.post('https://MessageApp-api.onrender.com/register', registerInfo)
             console.log(response.data)
             if(response.data){
                 window.location.href = '/login';

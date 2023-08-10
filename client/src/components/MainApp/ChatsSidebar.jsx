@@ -9,7 +9,7 @@ export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
   const [fetchChats, setFetchChats] = useState(false);
   useEffect(() => {
     const getAllChats = async () => {
-      const chats = await axios.get("http://localhost:3500/chat", {
+      const chats = await axios.get("https://MessageApp-api.onrender.com/chat", {
         withCredentials: true,
       });
       setAllChats(chats.data);
@@ -19,7 +19,7 @@ export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
   }, [fetchChats]);
   const handleNewChat = async ({name, id}) => {
     const newChat = await axios.post(
-      "http://localhost:3500/chat",
+      "https://MessageApp-api.onrender.com/chat",
       { chat: name, user:currentUser.username, chatID: id},
       { withCredentials: true }
     );

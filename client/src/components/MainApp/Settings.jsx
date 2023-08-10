@@ -14,14 +14,15 @@ export default function Settings() {
     const getUserInfo = async () => {
       try {
         const userInfo = await axios.post(
-          "http://localhost:3500/user/otherUser",
+          "https://MessageApp-api.onrender.com/user/otherUser",
           {
             user: user.user,
           }
         );
         setFoundUserInfo(userInfo.data)
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching user info:", err);
+        console.log("user.user value:", user.user);
         navigate("/404");
       }
     };
@@ -29,7 +30,7 @@ export default function Settings() {
   }, [rerender]);
 
   const handleLogout = async () => {
-    const response = await axios.delete("http://localhost:3500/logout", {
+    const response = await axios.delete("https://MessageApp-api.onrender.com/logout", {
       withCredentials: true,
     });
     navigate("/");

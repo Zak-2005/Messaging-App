@@ -18,7 +18,7 @@ export default function CurrentChat({
   useEffect(() => {
       const handleGetAllChatMessages = async () => {
         const allMessages = await axios.post(
-          "http://localhost:3500/message/all",
+          "https://MessageApp-api.onrender.com/message/all",
           {
             currentChat: currentChat,
           },
@@ -28,7 +28,7 @@ export default function CurrentChat({
       };
 
     const getCurrentChatInfo = async () => {
-      const chatInfo = await axios.post("http://localhost:3500/chat/current", {
+      const chatInfo = await axios.post("https://MessageApp-api.onrender.com/chat/current", {
         chat: currentChat,
       });
       setCurrentChatInfo(chatInfo.data);
@@ -36,7 +36,7 @@ export default function CurrentChat({
     };
     const getFriendIds = async () => {
       try {
-        const response = await axios.get("http://localhost:3500/user");
+        const response = await axios.get("https://MessageApp-api.onrender.com/user");
         const allUsers = response.data;
         setAllUsersData(allUsers);
         const friendIds = allUsers
@@ -56,7 +56,7 @@ export default function CurrentChat({
 
   const handleNewMessage = async () => {
     const newMessage = axios.post(
-      "http://localhost:3500/message",
+      "https://MessageApp-api.onrender.com/message",
       {
         chat: currentChat,
         message: message,
@@ -80,7 +80,7 @@ export default function CurrentChat({
     e.stopPropagation();
   };
   const addFriendToChat = async (friend) => {
-    const addFriend = await axios.post("http://localhost:3500/chat/addToChat", {
+    const addFriend = await axios.post("https://MessageApp-api.onrender.com/chat/addToChat", {
       chat: currentChat.id,
       user: friend,
     });

@@ -1,3 +1,4 @@
+import '../../css/404.css'
 export default function NotFound(){
-    return <div>Page Not Found</div>
+    return <div className="not-found"><div>Page Not Found</div></div>
 }
