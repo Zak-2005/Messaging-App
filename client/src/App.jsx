@@ -18,7 +18,7 @@ function App({ user }) {
     const refreshAccessToken = async () => {
       try {
         const response = await axios.post(
-          "https://MessageApp-api.onrender.com/refresh",
+          "https://messagingapp-api.onrender.com/refresh",
           {},
           {
             withCredentials: true, // Include cookies in the request
@@ -26,7 +26,7 @@ function App({ user }) {
         );
         setAccessToken(response.data.accessToken);
         const loadData = await axios.post(
-          "https://MessageApp-api.onrender.com/user",
+          "https://messagingapp-api.onrender.com/user",
           {},
           {
             headers: {

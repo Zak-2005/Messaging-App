@@ -7,7 +7,7 @@ export default function UsersSidebar({ userList, currentUser, setUserList }) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const getAllUsers = async () => {
-      const allUsers = await axios.get("https://MessageApp-api.onrender.com/user");
+      const allUsers = await axios.get("https://messagingapp-api.onrender.com/user");
       console.log(allUsers.data);
       setUsers(allUsers.data);
     };
@@ -16,7 +16,7 @@ export default function UsersSidebar({ userList, currentUser, setUserList }) {
 
   const handleAddFriend = async (friend) => {
     try {
-      await axios.post("https://MessageApp-api.onrender.com/friend", {
+      await axios.post("https://messagingapp-api.onrender.com/friend", {
         user: currentUser.username,
         friend: friend,
       });
@@ -28,7 +28,7 @@ export default function UsersSidebar({ userList, currentUser, setUserList }) {
 
   const handleRemoveFriend = async (friend) => {
     try {
-      const response = await axios.delete("https://MessageApp-api.onrender.com/friend", {
+      const response = await axios.delete("https://messagingapp-api.onrender.com/friend", {
         data: { user: currentUser.username, friend: friend },
       });
       alert("Refresh the page to see changes");

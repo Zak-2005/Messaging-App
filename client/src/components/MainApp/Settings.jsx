@@ -14,7 +14,7 @@ export default function Settings() {
     const getUserInfo = async () => {
       try {
         const userInfo = await axios.post(
-          "https://MessageApp-api.onrender.com/user/otherUser",
+          "https://messagingapp-api.onrender.com/user/otherUser",
           {
             user: user.user,
           }
@@ -30,7 +30,7 @@ export default function Settings() {
   }, [rerender]);
 
   const handleLogout = async () => {
-    const response = await axios.delete("https://MessageApp-api.onrender.com/logout", {
+    const response = await axios.delete("https://messagingapp-api.onrender.com/logout", {
       withCredentials: true,
     });
     navigate("/");

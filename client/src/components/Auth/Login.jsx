@@ -24,7 +24,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://MessageApp-api.onrender.com/login",
+        "https://messagingapp-api.onrender.com/login",
         loginInfo,
         { withCredentials: true }
       );
