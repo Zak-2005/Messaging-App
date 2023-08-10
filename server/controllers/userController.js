@@ -15,7 +15,7 @@ const handleGetOtherUser = async (req, res) => {
   if (!user) return res.status(400).json({ msg: "No user entered" });
   const foundUser = await User.findOne({ username: user }).exec();
   if (!foundUser) return res.status(400).json({ msg: "User does not exist" });
-  res.status(201).json(foundUser,);
+  res.status(201).json({username:foundUser.username, bio:foundUser.bio});
 };
 
 const handleGetAllUsers = async (req, res) => {
