@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function App({ user }) {
   const [userList, setUserList] = useState(false);
-  const [currentChat, setCurrentChat] = useState("Main Chat");
+  const [currentChat, setCurrentChat] = useState({name:'Main Chat', id:"Main"});
   const [currentUser, setCurrentUser] = useState("");
   const [inviteToChatModal, setInviteToChatModal] = useState(false);
   const [accessToken, setAccessToken] = useState(null);
@@ -48,8 +48,8 @@ function App({ user }) {
   const showUserList = () => {
     setUserList(!userList);
   };
-  const changeCurrentChat = (chatName) => {
-    setCurrentChat(chatName);
+  const changeCurrentChat = (chat) => {
+    setCurrentChat(chat);
   };
   const handleInviteToChat = () => {
     setInviteToChatModal(!inviteToChatModal);
@@ -78,6 +78,7 @@ function App({ user }) {
       <UsersSidebar
         userList={userList}
         currentUser={currentUser ? currentUser : ""}
+        setUserList={setUserList}
       />
     </div>
   );
