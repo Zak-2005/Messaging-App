@@ -17,10 +17,10 @@ export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
     getAllChats();
     console.log(allChats)
   }, [fetchChats]);
-  const handleNewChat = async (value) => {
+  const handleNewChat = async ({name, id}) => {
     const newChat = await axios.post(
       "http://localhost:3500/chat",
-      { chat: value, user:currentUser.username },
+      { chat: name, user:currentUser.username, chatID: id},
       { withCredentials: true }
     );
     setChatForm(false);
@@ -34,7 +34,7 @@ export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
           return (
             <li
               key={uuidv4()}
-              onClick={(e) => changeCurrentChat(e.target.textContent)}
+              onClick={(e) => changeCurrentChat({name:chat.name, id:chat.chatID})}
             className="chat"
             >
               {chat.name}
@@ -49,10 +49,10 @@ export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
               type="text"
               value={newChat}
               onChange={(e) => setNewChat(e.target.value)}
-              onSubmit={() => handleNewChat(newChat)}
+              onSubmit={() => handleNewChat({name: newChat, id:uuidv4()})}
             />
             <div className="formControl">
-              <button onClick={() => handleNewChat(newChat)}>Add</button>
+              <button onClick={() => handleNewChat({name: newChat, id:uuidv4()})}>Add</button>
               <button onClick={() => setChatForm(false)}>Cancel</button>
             </div>
           </div>
