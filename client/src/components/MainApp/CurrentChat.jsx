@@ -12,19 +12,21 @@ export default function CurrentChat({
   const [currentMessages, setCurrentMessages] = useState([]);
   const [currentChatInfo, setCurrentChatInfo] = useState();
   const [friendIds, setFriendIds] = useState([]);
+  const [allUsersData, setAllUsersData] = useState([]);
   const [fetchMessages, setFetchMessages] = useState(false);
 
   useEffect(() => {
-    const handleGetAllChatMessages = async () => {
-      const allMessages = await axios.post(
-        "http://localhost:3500/message/all",
-        {
-          currentChat: currentChat,
-        },
-        { withCredentials: true }
-      );
-      setCurrentMessages(allMessages.data);
-    };
+      const handleGetAllChatMessages = async () => {
+        const allMessages = await axios.post(
+          "http://localhost:3500/message/all",
+          {
+            currentChat: currentChat,
+          },
+          { withCredentials: true }
+        );
+        setCurrentMessages(allMessages.data);
+      };
+
     const getCurrentChatInfo = async () => {
       const chatInfo = await axios.post("http://localhost:3500/chat/current", {
         chat: currentChat,
@@ -33,31 +35,32 @@ export default function CurrentChat({
       console.log(chatInfo.data);
     };
     const getFriendIds = async () => {
-        try {
-          const response = await axios.get("http://localhost:3500/user");
-          const allUsers = response.data;
-          const friendIds = allUsers
-            .filter(friend => currentUser.friends.includes(friend._id))
-            .map(friend => ({ username: friend.username, id: friend._id }));
-      
-          console.log(friendIds);
-          setFriendIds(friendIds);
-        } catch (error) {
-          console.error('Error fetching friend IDs:', error);
-        }
-      };
+      try {
+        const response = await axios.get("http://localhost:3500/user");
+        const allUsers = response.data;
+        setAllUsersData(allUsers);
+        const friendIds = allUsers
+          .filter((friend) => currentUser.friends.includes(friend._id))
+          .map((friend) => ({ username: friend.username, id: friend._id }));
+
+        console.log(friendIds);
+        setFriendIds(friendIds);
+      } catch (error) {
+        console.error("Error fetching friend IDs:", error);
+      }
+    };
     handleGetAllChatMessages();
     getCurrentChatInfo();
     getFriendIds();
-  }, [currentChat, currentUser,fetchMessages]);
+  }, [currentChat, currentUser, fetchMessages]);
 
   const handleNewMessage = async () => {
     const newMessage = axios.post(
       "http://localhost:3500/message",
       {
-        currentChat: currentChat,
+        chat: currentChat,
         message: message,
-        currentUser: currentUser.username,
+        user: currentUser._id,
       },
       {
         withCredentials: true,
@@ -78,7 +81,7 @@ export default function CurrentChat({
   };
   const addFriendToChat = async (friend) => {
     const addFriend = await axios.post("http://localhost:3500/chat/addToChat", {
-      chat: currentChat,
+      chat: currentChat.id,
       user: friend,
     });
   };
@@ -91,17 +94,19 @@ export default function CurrentChat({
             <div className="message">
               <h3
                 className={
-                  currentUser.username === message.user
-                    ? "currentUser"
-                    : "otherUser"
+                  currentUser._id === message.user ? "currentUser" : "otherUser"
                 }
               >
-                {message.user}:
+                {
+                  allUsersData.find((user) => user._id === message.user)
+                    .username
+                }
+                :
               </h3>
               <li
                 key={uuidv4()}
                 className={
-                  currentUser.username === message.user ? "currentUser" : ""
+                  currentUser._id === message.user ? "currentUser" : ""
                 }
               >
                 {message.message}
@@ -119,15 +124,17 @@ export default function CurrentChat({
           onKeyDown={handleKeyDown}
         />
       </div>
-      {inviteToChatModal&&friendIds.length>0 ? (
+      {inviteToChatModal ? (
         <div className="modal">
           <div className="overlay" onClick={handleInviteToChat}>
             <div className="modal-content" onClick={handleModalClick}>
-              <h1>Invite Friends to {currentChat}</h1>
-              <ul>
-                {friendIds.map((friend) => {
-                  return (
-                    <div className="modal-friends">
+              <h1>Invite Friends to {currentChat.name}</h1>
+              {friendIds.length === 0 ? (
+                <p>No Friends to invite</p>
+              ) : (
+                <ul>
+                  {friendIds.map((friend) => (
+                    <div className="modal-friends" key={friend.id}>
                       <li>{friend.username}</li>
                       {currentChatInfo.users.includes(friend.id) ? (
                         <button>Already Added</button>
@@ -139,9 +146,9 @@ export default function CurrentChat({
                         </button>
                       )}
                     </div>
-                  );
-                })}
-              </ul>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
