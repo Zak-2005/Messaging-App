@@ -32,3 +32,12 @@
   gap: 20px;
   margin-top: 1rem;
 }
+
+@media (max-width:600px) {
+  .chatsSidebar{
+    min-width: min-content;
+  }
+  .chatsSidebar>*{
+    font-size: medium;
+  }
+}
