@@ -7,7 +7,6 @@ body {
 .registerContainer {
   background-image: url(../../public/register_background.png);
   background-size: cover;
-  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,7 +17,6 @@ body {
 }
 
 .registerForm {
-  max-width: min-content;
   padding: 1rem;
   background-color: rgb(59, 59, 59);
   display: flex;
@@ -89,4 +87,19 @@ button:hover {
 .warning>a, .logout {
   color: red;
   font-weight: bolder;
+}
+
+@media (max-width: 600px) {
+  .registerForm>*{
+    padding:10%;
+  }
+  .formTitle{
+    font-size: x-large;
+  }
+  form>*{
+    font-size: medium;
+  }
+  input{
+    font-size: medium;
+  }
 }
