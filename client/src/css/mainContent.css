@@ -1,83 +1,83 @@
-
-
 ::-webkit-scrollbar {
-    background-color: transparent;
-    width:10px;
-
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 10px;
-  }
-
-.currentChat{
-    padding:1rem;
-
+  background-color: transparent;
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
 }
 
-.chatMessages{
-    border-radius: 10px;
-max-height: 60vh;
-overflow-y: scroll;
+.currentChat {
+  padding: 1rem;
+}
+
+.chatMessages {
+  border-radius: 10px;
+  max-height: 60vh;
+  overflow-y: scroll;
 }
 
 .messageBarContainer {
-  display:flex;
-    margin-top: 20px;
+  display: flex;
+  margin-top: 20px;
 }
 
 .messageBar {
   padding: 1rem;
-  flex:1;
+  flex: 1;
 }
 
-
-
-.otherUser{
-    margin-left: 10px;
+.otherUser {
+  margin-left: 10px;
 }
-.currentUser{
-    display:flex;
-    justify-content: right;
-    flex-wrap: wrap;
-    margin-right: 10px;
+.currentUser {
+  display: flex;
+  justify-content: right;
+  flex-wrap: wrap;
+  margin-right: 10px;
 }
 
-.message{
-    word-break: break-all;
-
+.message {
+  word-break: break-all;
 }
 
-li{
-    display:flex;
-    overflow-wrap: break-word;
+li {
+  display: flex;
+  overflow-wrap: break-word;
 }
 
-.modal, .overlay {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+  background-color: rgb(33, 33, 33);
+  padding: 1rem;
+}
+
+.modal-friends {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+@media (max-width: 600px) {
+  .chatMessages > * {
+    font-size: medium;
   }
-  
-  .overlay {
-    background-color: rgba(0, 0, 0, 0.9);
-  }
-  
-  .modal-content {
-    background-color: rgb(33, 33, 33);
-    padding: 1rem;
-  }
-  
-  .modal-friends {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-  }
+}
