@@ -1,5 +1,5 @@
 const whitelist = [
-    'https://MessageApp.onrender.com'
+    'https://messagingapp-j8dr.onrender.com'
 ];
 
 const corsOptions = {
