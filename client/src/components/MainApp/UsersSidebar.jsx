@@ -2,13 +2,14 @@ import "../../css/usersSidebar.css";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useEffect, useState } from "react";
-import {Link} from 'react-router-dom'
-export default function UsersSidebar({ userList, currentUser}) {
+import { Link } from "react-router-dom";
+import Loading from "./Loading";
+export default function UsersSidebar({ userList, currentUser, setUserList }) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const getAllUsers = async () => {
       const allUsers = await axios.get("http://localhost:3500/user");
-      console.log(allUsers.data)
+      console.log(allUsers.data);
       setUsers(allUsers.data);
     };
     getAllUsers();
@@ -20,7 +21,7 @@ export default function UsersSidebar({ userList, currentUser}) {
         user: currentUser.username,
         friend: friend,
       });
-      alert('Refresh the page to see changes')
+      alert("Refresh the page to see changes");
     } catch (err) {
       console.error(err);
     }
@@ -31,14 +32,14 @@ export default function UsersSidebar({ userList, currentUser}) {
       const response = await axios.delete("http://localhost:3500/friend", {
         data: { user: currentUser.username, friend: friend },
       });
-      alert('Refresh the page to see changes')
+      alert("Refresh the page to see changes");
     } catch (err) {
       console.error(err);
     }
   };
 
   const renderFriend = (friendId) => {
-    const friend = users.find(user => user._id === friendId);
+    const friend = users.find((user) => user._id === friendId);
     if (friend) {
       return (
         <li key={uuidv4()}>
@@ -53,23 +54,33 @@ export default function UsersSidebar({ userList, currentUser}) {
           </button>
         </li>
       );
-    }
-    else return null; // Handle the case when the friend is not found
+    } else return null; // Handle the case when the friend is not found
   };
-  
-  
+
   return (
-    <div className="userList">
+    <div className={userList ? "userList visible" : "userList"}>
       {userList ? (
         <ul>
-          <li>
-            <strong>You: </strong> {currentUser.username}
-          </li>
+          <div className="close-list">
+            <img
+              src="../../public/close.png"
+              alt="invite to server"
+              onClick={() => setUserList(false)}
+            />
+          </div>
+
+          <div>
+            {" "}
+            <li>
+              <strong>You: </strong>
+            </li>
+            <li>{currentUser.username}</li>
+          </div>
           <li>
             <strong>Friends:</strong>
           </li>
           {currentUser.friends.map((friend) => {
-           return renderFriend(friend)
+            return renderFriend(friend);
           })}
           <li>
             <strong>Users:</strong>
@@ -82,7 +93,7 @@ export default function UsersSidebar({ userList, currentUser}) {
               return (
                 <div>
                   <li key={uuidv4()}>
-                  <Link to={`/${user.username}`}> {user.username}</Link>
+                    <Link to={`/${user.username}`}> {user.username}</Link>
                     <button
                       className="addFriend"
                       onClick={() => handleAddFriend(user.username)}
