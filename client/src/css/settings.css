@@ -9,11 +9,6 @@
     background-color: rgb(70, 70, 70);
 }
 
-.profileContainer{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .settingsTitle{
     grid-column: 1/span 2;
@@ -34,21 +29,35 @@
 .settings{
     flex: 1;
     grid-row: 2;
+    text-decoration: none;
 }
 
 .profile{
     background-color: rgb(33, 33, 33);
-    max-width: max-content;
+    height: fit-content;
     padding:1rem;
+    margin: 3rem;
 }
 
-.profile-element{
+.profile-title{
     display: flex;
     align-items: center;
-    
+    margin: 1rem;
+}
+
+.profile-element>*{
+    margin: 1rem;
 }
 
 .element-title{
     font-size: x-large;
 }
 
+.dashboard, a{
+    color: white;
+    text-decoration: none;
+}
+
+.logout{
+    cursor: pointer;
+}
