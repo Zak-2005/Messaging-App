@@ -100,7 +100,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
         <div className="profile-title">
           <h2>Edit: </h2>
           <img
-            src="../public/edit.png"
+            src="/edit.png"
             alt="edit profile"
             className="icon"
             onClick={() => setEditProfile(!editProfile)}

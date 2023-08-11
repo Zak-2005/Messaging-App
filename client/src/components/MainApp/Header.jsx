@@ -7,8 +7,8 @@ export default function Header({showUserList, currentChat, handleInviteToChat, c
         <div className="header">
             <h3>{currentChat.name}</h3>
             <div className='icon-holder'>
-                <img src="../../public/invite.png" alt="invite to server" className='icon' onClick={()=>handleInviteToChat()}/>
-                <img src="../../public/users.png" alt="user list" className='icon' onClick={()=>showUserList()}/>
+                <img src="/invite.png" alt="invite to server" className='icon' onClick={()=>handleInviteToChat()}/>
+                <img src="/users.png" alt="user list" className='icon' onClick={()=>showUserList()}/>
                 <Link to={`/${currentUser.username}`}><img src="../../public/settings.png" alt="settings" className='icon'/></Link>
             </div>
         </div>

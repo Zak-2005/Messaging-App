@@ -19,7 +19,7 @@ export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
   }, [fetchChats]);
   const handleNewChat = async ({name, id}) => {
     const newChat = await axios.post(
-      "https://MessageApp-api.onrender.com/chat",
+      "https://messagingapp-api.onrender.com/chat",
       { chat: name, user:currentUser.username, chatID: id},
       { withCredentials: true }
     );

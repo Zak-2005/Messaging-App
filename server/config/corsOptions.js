@@ -10,10 +10,8 @@ const corsOptions = {
             callback(new Error('Not allowed by CORS'));
         }
     },
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false, 
-    optionsSuccessStatus: 204, 
-    credentials: true, 
+    credentials: true, // Enable sending cookies and credentials
+    optionsSuccessStatus: 200
 }
 
 module.exports = corsOptions;

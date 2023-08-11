@@ -62,7 +62,7 @@ export default function UsersSidebar({ userList, currentUser, setUserList }) {
         <ul>
           <div className="close-list">
             <img
-              src="../../public/close.png"
+              src="/close.png"
               alt="invite to server"
               onClick={() => setUserList(false)}
             />
