@@ -35,7 +35,7 @@ const handleLogin = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: "messagingapp-j8d3.onrender.com"
+      domain: ".messagingapp-j8d3.onrender.com"
     });
     res.json({ accessToken });
   } else {
