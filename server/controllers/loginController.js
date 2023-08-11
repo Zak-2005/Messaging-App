@@ -33,8 +33,9 @@ const handleLogin = async (req, res) => {
     const result = await foundUser.save();
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
-      secure:true,
-      sameSite:'none'
+      secure: true,
+      sameSite: "none",
+      domain: "messagingapp-j8d3.onrender.com"
     });
     res.json({ accessToken });
   } else {
