@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 3500;
 connectDB();
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 app.use(cookieParser())
 app.use('/', express.static(path.join(__dirname, "public")))
 app.use(express.json())
