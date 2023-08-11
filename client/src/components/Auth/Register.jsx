@@ -1,11 +1,12 @@
 import '../../css/register.css'
 import axios from 'axios'
 import {useState} from "react"
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 export default function Register(){
     const [user, setUser] = useState("")
     const [pass, setPass] = useState("")
     const [registerFailed, setRegisterFailed] = useState(false)
+    const navigate = useNavigate()
     const handleSetUser = (value)=>{
         console.log(user)
         setUser(value)
@@ -26,7 +27,7 @@ export default function Register(){
             const response = await axios.post('https://messagingapp-api.onrender.com/register', registerInfo)
             console.log(response.data)
             if(response.data){
-                window.location.href = '/login';
+                navigate('/login');
             }
         }catch(err){
             setRegisterFailed(true)
