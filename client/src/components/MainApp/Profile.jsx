@@ -62,10 +62,13 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
         setRerender(!rerender);
       }
       if (currentBio.current !== changeBio) {
-        const editBio = await axios.put("https://messagingapp-api.onrender.com/user/bio", {
-          user: changeUsername,
-          bio: changeBio,
-        });
+        const editBio = await axios.put(
+          "https://messagingapp-api.onrender.com/user/bio",
+          {
+            user: changeUsername,
+            bio: changeBio,
+          }
+        );
       }
       if (enterCurrentPass !== "" && changePass !== "") {
         const response = await axios.put(
@@ -95,7 +98,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
     <div className="profile">
       {currentUsername.current === userAccessingPage ? (
         <div className="profile-title">
-          <h2>Edit: </h2>
+          <h1>Edit: </h1>
           <img
             src="/edit.png"
             alt="edit profile"
@@ -109,6 +112,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
         <h3 className="element-title">Username:</h3>
         {editProfile ? (
           <input
+            className="change-element"
             type="text"
             placeholder="Edit username"
             value={changeUsername}
@@ -122,6 +126,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
         <h3 className="element-title">Bio:</h3>
         {editProfile ? (
           <input
+            className="change-element"
             type="text"
             placeholder="Edit Bio"
             value={changeBio}
@@ -137,18 +142,20 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
           <div className="profile-element">
             <h3 className="element-title">Change Password:</h3>
             <input
+              className="change-element"
               type="text"
               placeholder="Current Password:"
               value={enterCurrentPass}
               onChange={(e) => setEnterCurrentPass(e.target.value)}
             />
             <input
+              className="change-element"
               type="text"
               placeholder="Change Password:"
               value={changePass}
               onChange={(e) => setChangePass(e.target.value)}
             />
-            <button onClick={() => handleEditProfile()}>Submit</button>
+            <button className="submit" onClick={() => handleEditProfile()}>Submit</button>
           </div>
         </>
       ) : null}

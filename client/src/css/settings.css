@@ -1,63 +1,89 @@
-.settingsContainer{
-    display:grid;
-    grid-template-columns: 1fr 10fr;
-    grid-template-rows: 1fr 10fr;
-    min-height: 100vh;
-    max-height: 100vh;
-    color: white;
-    font-family: discord;
-    background-color: rgb(70, 70, 70);
+.settingsContainer {
+  display: grid;
+  grid-template-columns: 1fr 10fr;
+  grid-template-rows: 1fr 10fr;
+  height:100vh;
+  color: white;
+  font-family: discord;
+  background-color: rgb(70, 70, 70);
 }
 
+p {
+  font-size: large;
+}
 
-.settingsTitle{
-    grid-column: 1/span 2;
-    display: flex;
-    padding: 1rem;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+.change-element {
+  font-size: large;
+}
+
+.submit {
+  font-size: medium;
+}
+.settingsTitle {
+  grid-column: 1 / span 2;
+  display: flex;
+  padding: 1rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  font-size: large;
+  align-items: center;
+  margin: 0px;
+}
+
+.settingsSidebar {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings {
+  flex: 1;
+  grid-row: 2;
+  text-decoration: none;
+}
+
+.profile {
+  background-color: rgb(33, 33, 33);
+  height: fit-content;
+  padding: 1rem;
+  margin: 3rem;
+}
+
+.profile-title {
+  display: flex;
+  align-items: center;
+  margin: 1rem;
+}
+
+.profile-element > * {
+  margin: 1rem;
+}
+
+.element-title {
+  font-size: large;
+}
+
+.dashboard,
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.logout {
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .settingsContainer {
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: min-content 1fr;
+  }
+  .profile {
+    margin: 1rem;
+    padding:.5rem
+  }
+  .settings {
     font-size: large;
-    align-items: center;
-    margin: 0px;
-}
-
-.settingsSidebar{
-    grid-column: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.settings{
-    flex: 1;
-    grid-row: 2;
-    text-decoration: none;
-}
-
-.profile{
-    background-color: rgb(33, 33, 33);
-    height: fit-content;
-    padding:1rem;
-    margin: 3rem;
-}
-
-.profile-title{
-    display: flex;
-    align-items: center;
-    margin: 1rem;
-}
-
-.profile-element>*{
-    margin: 1rem;
-}
-
-.element-title{
-    font-size: x-large;
-}
-
-.dashboard, a{
-    color: white;
-    text-decoration: none;
-}
-
-.logout{
-    cursor: pointer;
+  }
+  
+  
 }
