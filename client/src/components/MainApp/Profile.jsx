@@ -69,7 +69,7 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
       }
       if (enterCurrentPass !== "" && changePass !== "") {
         const response = await axios.put(
-          "https://messagingapp-api.onrender.com/newPass",
+          "https://messagingapp-api.onrender.com/user/newPass",
           {
             user: changeUsername,
             oldPass: enterCurrentPass,
