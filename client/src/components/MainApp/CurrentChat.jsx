@@ -81,6 +81,7 @@ export default function CurrentChat({
       chat: currentChat,
       user: friend,
     });
+    alert("Refresh the page to see changes");
   };
 
   return (
