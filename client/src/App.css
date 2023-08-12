@@ -27,7 +27,9 @@ ul {
 }
 ul > * {
   margin-bottom: 2rem;
-
+}
+h1{
+  font-size: xx-large;
 }
 @media (max-width:600px){
   .app{
