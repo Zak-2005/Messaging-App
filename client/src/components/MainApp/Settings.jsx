@@ -22,7 +22,6 @@ export default function Settings() {
         setFoundUserInfo(userInfo.data)
       } catch (err) {
         console.error("Error fetching user info:", err);
-        console.log("user.user value:", user.user);
         navigate("/404");
       }
     };

@@ -15,7 +15,6 @@ export default function ChatsSidebar({ changeCurrentChat, currentUser}) {
       setAllChats(chats.data);
     };
     getAllChats();
-    console.log(allChats)
   }, [fetchChats]);
   const handleNewChat = async ({name, id}) => {
     const newChat = await axios.post(

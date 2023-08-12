@@ -33,7 +33,7 @@ const handleGetCurrentChat = async(req,res)=>{
 
 const handleAddFriendToChat = async(req,res) =>{
     const {chat, user} = req.body;
-    if(!user) return res.status(400).json({msg:"Please enter a user to be added"})
+    if(!chat || !user) return res.status(400).json({msg:"Please enter a chat and a user"})
     const foundUser = await User.findOne({username:user}).exec()
     if(!foundUser) return res.status(400).json({msg:"User does not exist"})
     const chatExists = await Chat.findOne({chatID:chat.id}).exec()

@@ -8,7 +8,6 @@ export default function Register(){
     const [registerFailed, setRegisterFailed] = useState(false)
     const navigate = useNavigate()
     const handleSetUser = (value)=>{
-        console.log(user)
         setUser(value)
     }
     const handleSetPass = (value)=>{
@@ -25,7 +24,6 @@ export default function Register(){
 
         try{
             const response = await axios.post('https://messagingapp-api.onrender.com/register', registerInfo)
-            console.log(response.data)
             if(response.data){
                 navigate('/login');
             }

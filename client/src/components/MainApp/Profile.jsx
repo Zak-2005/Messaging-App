@@ -47,9 +47,6 @@ export default function Profile({ foundUserInfo, rerender, setRerender }) {
   const handleEditProfile = async () => {
     try {
       if (currentUsername.current !== changeUsername) {
-        console.log(currentUsername);
-        console.log(changeUsername);
-        console.log(accessToken);
         const editUsername = await axios.put(
           "https://messagingapp-api.onrender.com/user/newUsername",
           {

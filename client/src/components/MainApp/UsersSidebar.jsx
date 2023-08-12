@@ -8,7 +8,6 @@ export default function UsersSidebar({ userList, currentUser, setUserList }) {
   useEffect(() => {
     const getAllUsers = async () => {
       const allUsers = await axios.get("https://messagingapp-api.onrender.com/user");
-      console.log(allUsers.data);
       setUsers(allUsers.data);
     };
     getAllUsers();

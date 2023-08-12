@@ -34,7 +34,6 @@ function App({ user }) {
             },
           }
         );
-        console.log(loadData.data);
         setCurrentUser(loadData.data);
       } catch (error) {
         console.error(error);

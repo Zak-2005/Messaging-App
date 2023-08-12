@@ -32,7 +32,6 @@ export default function CurrentChat({
         chat: currentChat,
       });
       setCurrentChatInfo(chatInfo.data);
-      console.log(chatInfo.data);
     };
     const getFriendIds = async () => {
       try {
@@ -42,8 +41,6 @@ export default function CurrentChat({
         const friendIds = allUsers
           .filter((friend) => currentUser.friends.includes(friend._id))
           .map((friend) => ({ username: friend.username, id: friend._id }));
-
-        console.log(friendIds);
         setFriendIds(friendIds);
       } catch (error) {
         console.error("Error fetching friend IDs:", error);
@@ -81,7 +78,7 @@ export default function CurrentChat({
   };
   const addFriendToChat = async (friend) => {
     const addFriend = await axios.post("https://messagingapp-api.onrender.com/chat/addToChat", {
-      chat: currentChat.id,
+      chat: currentChat,
       user: friend,
     });
   };
