@@ -1,8 +1,8 @@
 .settingsContainer {
   display: grid;
-  grid-template-columns: 1fr 10fr;
-  grid-template-rows: 1fr 10fr;
-  height:100vh;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: min-content 1fr;
+  min-height:100vh;
   color: white;
   font-family: discord;
   background-color: rgb(70, 70, 70);
@@ -78,12 +78,19 @@ a {
     grid-template-rows: min-content 1fr;
   }
   .profile {
-    margin: 1rem;
+    margin: 0rem;
     padding:.5rem
   }
   .settings {
     font-size: large;
   }
   
-  
+  .change-element{
+    font-size: small;
+  }
+}
+@media (max-width:350px) {
+    .change-element{
+        font-size: x-small;
+      }
 }
